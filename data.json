@@ -1,39 +1,20 @@
 {
   "leagues": {
-    "bd2e8e26": {
-      "name": "Ginger Test Pool",
+    "057b48b7": {
+      "name": "test",
       "season": 2026,
-      "adminHash": "aae9ee5b6b7b41c2528dec1714e2b385d69b8c7dde33e6fea8c8973a99a49c7a",
+      "adminHash": "0ffe1abd1a08215353c233d6e009613e95eec4253832a761af28ff37ac5a150c",
       "users": {
-        "Danny": {
-          "pinHash": "aae9ee5b6b7b41c2528dec1714e2b385d69b8c7dde33e6fea8c8973a99a49c7a",
-          "tokenHash": "5911dabed5de3889a21e593ec5d0c1c50924a6528fcde733ac74addee60e01d7",
-          "picks": {
-            "401872948": "ATL",
-            "401872949": "CAR",
-            "401872950": "CIN",
-            "401872951": "HOU",
-            "401872952": "KC",
-            "401872953": "BUF",
-            "401872954": "DET",
-            "401872955": "SEA",
-            "401872956": "NYG",
-            "401872957": "JAX",
-            "401872958": "SF",
-            "401872959": "MIN",
-            "401872960": "DAL",
-            "401872961": "NO",
-            "401872962": "LAR",
-            "401872963": "PHI"
-          },
-          "tiebreakers": {
-            "3": 36
-          },
-          "joinedAt": "2026-09-24T22:22:50.922Z"
+        "test": {
+          "pinHash": "0ffe1abd1a08215353c233d6e009613e95eec4253832a761af28ff37ac5a150c",
+          "tokenHash": "6bed369306ee862ada7ecfc119c57d3448ac01326121dd8c4e659f91c25a2e6a",
+          "picks": {},
+          "tiebreakers": {},
+          "joinedAt": "2026-09-24T23:39:34.936Z"
         }
       },
       "manualResults": {},
-      "createdAt": "2026-09-24T22:22:50.922Z"
+      "createdAt": "2026-09-24T23:39:34.936Z"
     }
   }
 }
