@@ -1,3 +1,10 @@
+FOURTH & PICK V6.1 — RENDER ROOT ROUTE FIX
+
+V6.1 adds an explicit GET / route that serves public/index.html on hosted deployments.
+This fixes the Render symptom: Cannot GET /.
+
+IMPORTANT: upload/replace the ENTIRE contents of this package in the GitHub repository used by Render, including the public folder.
+
 FOURTH & PICK V6
 ================
 

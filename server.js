@@ -1,7 +1,13 @@
 const express=require('express'),fs=require('fs'),path=require('path'),crypto=require('crypto');
 const {Pool}=require('pg');
 const ExcelJS=require('exceljs');
-const app=express(); app.set('trust proxy',1); app.use(express.json({limit:'1mb'})); app.use(express.static(path.join(__dirname,'public')));
+const app=express();
+app.set('trust proxy',1);
+app.use(express.json({limit:'1mb'}));
+const PUBLIC_DIR=path.join(__dirname,'public');
+app.use(express.static(PUBLIC_DIR));
+// Explicit root route for hosted deployments (Render, Railway, etc.).
+app.get('/',(req,res)=>res.sendFile(path.join(PUBLIC_DIR,'index.html')));
 
 // V6 storage: PostgreSQL when DATABASE_URL is set; safe local JSON fallback for desktop testing.
 const LOCAL_DB=path.join(__dirname,'data.json');
@@ -29,6 +35,6 @@ app.get('/api/leagues/:id/export.csv',route(async(req,res)=>{const l=await getLe
 app.get('/api/leagues/:id/export.xlsx',route(async(req,res)=>{const l=await getLeague(req.params.id);if(!l)return res.sendStatus(404);const {games,rows}=await exportData(l),wb=new ExcelJS.Workbook(),ws=wb.addWorksheet('Season Picks');ws.addRow(['Player','Wins','Losses','Win %',...games.map(g=>`${g.away}@${g.home}`)]);for(const r of rows)ws.addRow([r.name,r.w,r.lo,r.w+r.lo?r.pct/100:null,...r.picks]);ws.getRow(1).font={bold:true};ws.views=[{state:'frozen',xSplit:1,ySplit:1}];ws.columns.forEach(c=>c.width=Math.min(24,Math.max(10,...c.values.slice(1).map(v=>String(v??'').length+2))));ws.getColumn(4).numFmt='0.0%';const summary=wb.addWorksheet('Leaderboard');summary.addRow(['Player','Wins','Losses','Win %']);rows.sort((a,b)=>b.w-a.w||a.lo-b.lo||a.name.localeCompare(b.name)).forEach(r=>summary.addRow([r.name,r.w,r.lo,r.w+r.lo?r.pct/100:null]));summary.getRow(1).font={bold:true};summary.getColumn(4).numFmt='0.0%';summary.columns.forEach(c=>c.width=18);res.setHeader('Content-Disposition',`attachment; filename="${l.name.replace(/[^a-z0-9]/gi,'_')}_2026.xlsx"`);res.type('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');await wb.xlsx.write(res);res.end()}));
 app.get('/api/leagues/:id/week-summary',route(async(req,res)=>{const l=await getLeague(req.params.id);if(!l)return res.sendStatus(404);const week=Math.max(1,Math.min(18,+req.query.week||3)),games=await schedule(week),now=Date.now();const rows=[];for(const [name,u] of Object.entries(l.users)){let wins=0,losses=0,pending=0,picked=0;const revealed={};for(const g of games){const p=u.picks?.[g.id]||null,win=l.manualResults[g.id]||g.winner;if(p)picked++;if(Date.parse(g.kickoff)<=now)revealed[g.id]=p;if(p&&win)(p===win?wins++:losses++);else if(p&&!win)pending++}rows.push({name,wins,losses,pending,picked,total:games.length,tiebreaker:games.every(g=>Date.parse(g.kickoff)<=now)?u.tiebreakers?.[week]??null:null,picks:revealed})}rows.sort((a,b)=>b.wins-a.wins||a.losses-b.losses||b.picked-a.picked||a.name.localeCompare(b.name));const complete=games.length>0&&games.every(g=>!!(l.manualResults[g.id]||g.winner));const top=complete&&rows.length?Math.max(...rows.map(r=>r.wins)):null;res.json({week,complete,leaders:top===null?[]:rows.filter(r=>r.wins===top).map(r=>r.name),rows})}));
 app.get('/api/leagues/:id/admin-summary',route(async(req,res)=>{const l=await getLeague(req.params.id);if(!l)return res.sendStatus(404);if(!adminOK(l,req.query.pin))return res.status(403).json({error:'Wrong commissioner PIN'});const week=Math.max(1,Math.min(18,+req.query.week||3)),games=await schedule(week),now=Date.now();res.json({pool:l.name,players:Object.entries(l.users).map(([name,u])=>({name,picked:games.filter(g=>u.picks?.[g.id]).length,total:games.length,complete:games.length>0&&games.every(g=>u.picks?.[g.id]),joinedAt:u.joinedAt})),games:games.map(g=>({id:g.id,away:g.away,home:g.home,kickoff:g.kickoff,locked:Date.parse(g.kickoff)<=now,winner:l.manualResults[g.id]||g.winner}))})}));
-app.get('/health',route(async(req,res)=>{if(pg)await pg.query('SELECT 1');res.json({ok:true,version:'6.0.0',storage:pg?'postgresql':'local-json'})}));
+app.get('/health',route(async(req,res)=>{if(pg)await pg.query('SELECT 1');res.json({ok:true,version:'6.1.0',storage:pg?'postgresql':'local-json'})}));
 app.use((err,req,res,next)=>{console.error(err);res.status(500).json({error:'Server error. Please try again.'})});
-const PORT=process.env.PORT||3000;initDB().then(()=>app.listen(PORT,()=>console.log(`Fourth & Pick V6 running on port ${PORT} (${pg?'PostgreSQL':'local JSON'} storage)`))).catch(e=>{console.error('Database startup failed:',e);process.exit(1)});
+const PORT=process.env.PORT||3000;initDB().then(()=>app.listen(PORT,()=>console.log(`Fourth & Pick V6.1 running on port ${PORT} (${pg?'PostgreSQL':'local JSON'} storage)`))).catch(e=>{console.error('Database startup failed:',e);process.exit(1)});
