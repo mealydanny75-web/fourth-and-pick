@@ -22,3 +22,12 @@ OPTIONAL REAL EMAIL (ONLY WHEN YOU LATER DEPLOY)
 Set RESEND_API_KEY and EMAIL_FROM environment variables. Without them, V8.3 stays in safe local-preview mode.
 
 This preview uses local data.json unless DATABASE_URL is deliberately configured. It does not touch your live V7 database by default.
+
+V8.3.5 — POOL DISCOVERY & MEMBERSHIP MANAGEMENT
+- Find / Join Pool from My Pools using pool name or pool code.
+- Pool privacy: Invite Only, Searchable (commissioner approval), or Public.
+- Pending join requests with commissioner Approve / Deny controls.
+- Leave Pool preserves historical player/pick records while removing active membership.
+- Sole commissioners must transfer commissioner control before leaving.
+- Commissioner transfer controls added to Commissioner Center.
+- Existing PostgreSQL database is preserved; no reset required.

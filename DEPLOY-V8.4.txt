@@ -1,0 +1,12 @@
+FOURTH & PICK V8.4 — RENDER DEPLOYMENT
+
+1. Back up/export the current live repo before replacing files.
+2. Upload the contents of this package to the existing GitHub repository root.
+3. Keep the existing Render service and PostgreSQL database.
+4. Keep DATABASE_URL unchanged.
+5. Keep RESEND_API_KEY and EMAIL_FROM if live commissioner email is enabled.
+6. Render build command: npm install
+7. Render start command: npm start
+8. After deploy, test: account login, My Pools, picks + save confirmation, Live HQ, Game Detail -> Live Field, Commissioner Communications, Find Pool/Leave Pool.
+
+No database reset is required by this V8.4 package.

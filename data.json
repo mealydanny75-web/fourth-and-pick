@@ -1,58 +1,45 @@
 {
   "leagues": {
-    "c5e17897": {
+    "5f2a4af3": {
       "name": "Fourth & Pick",
       "season": 2026,
-      "adminHash": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+      "adminHash": "aae9ee5b6b7b41c2528dec1714e2b385d69b8c7dde33e6fea8c8973a99a49c7a",
       "users": {
-        "danny": {
-          "pinHash": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
-          "tokenHash": "57dee82534581260a593ff5b3cac73f638136b92c1ef1031aae8ef176bf9aeb5",
-          "picks": {
-            "401872953": "BUF",
-            "401872954": "DET"
-          },
-          "tiebreakers": {
-            "3": 47
-          },
-          "joinedAt": "2026-09-25T01:35:53.460Z",
-          "survivorPicks": {}
+        "ginger": {
+          "pinHash": "aae9ee5b6b7b41c2528dec1714e2b385d69b8c7dde33e6fea8c8973a99a49c7a",
+          "tokenHash": "79b44f5787d5d4878920f59ed43dd43c5acee910bdbdb944c0b94cb7cec979ea",
+          "picks": {},
+          "tiebreakers": {},
+          "joinedAt": "2026-09-25T16:05:05.975Z"
         }
       },
       "manualResults": {},
-      "createdAt": "2026-09-25T01:35:53.460Z",
-      "poolModes": {
-        "pickem": true,
-        "survivor": true,
-        "confidence": true,
-        "ats": true,
-        "lock": true,
-        "squares": true,
-        "doubleSurvivor": true,
-        "upset": true,
-        "playoffs": true,
-        "superBowl": true
-      },
-      "extraPools": {}
+      "poolPrivacy": "invite",
+      "poolCode": "5F2A4AF3",
+      "joinRequests": [],
+      "createdAt": "2026-09-25T16:05:05.975Z"
     }
   },
   "accounts": {
-    "dmealy89": {
-      "username": "dmealy89",
-      "display_name": "danny",
-      "salt": "b06a8d3850601f9c39adcc4d4d853f79",
-      "password_hash": "7a5c30491e0b8483d7a8f21a1c372540b6335a73a02b3cf45e147cff1301e205d78e5c63a5285a5698a803fbc113b874fa8af04b64aa68238f5a02b20d517b87",
-      "session_hash": "750321dc6f26b201c6f361055f7d11935048729c6707e1d2aa98e53f82c359dc",
-      "created_at": "2026-09-25T01:34:49.739Z"
+    "danny.mealyaol.com": {
+      "username": "danny.mealyaol.com",
+      "display_name": "ginger",
+      "salt": "bb9c61d32e7c8d6d57266cefd4420c38",
+      "password_hash": "7c7a3eb94486308f5e5da1060b9e79f871447b4fb7b35f3b426b05b17868ebefe435607c82fca3306ac09724ecd505d6100c1dba610e5dd613a8171317439080",
+      "session_hash": "47e9699656a2a283ecbcbe7c3d1eccd13bd24ef1a4aa9c2bd49e20d8ac787796",
+      "email": "danny.mealy@aol.com",
+      "email_reminders": true,
+      "created_at": "2026-09-25T16:04:44.732Z"
     }
   },
   "memberships": [
     {
-      "account_id": "dmealy89",
-      "league_id": "c5e17897",
-      "player_name": "danny",
+      "account_id": "danny.mealyaol.com",
+      "league_id": "5f2a4af3",
+      "player_name": "ginger",
       "role": "commissioner",
-      "joined_at": "2026-09-25T01:35:53.472Z"
+      "joined_at": "2026-09-25T16:05:05.989Z"
     }
-  ]
+  ],
+  "emailOutbox": []
 }

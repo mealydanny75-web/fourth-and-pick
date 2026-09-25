@@ -1,0 +1,11 @@
+FOURTH & PICK V8.4.3 — 32-TEAM STADIUM FIELDS
+
+Deploy as the next version of the existing Render service.
+Keep the existing DATABASE_URL and other environment variables.
+No database reset is required.
+
+Render:
+Build Command: npm install
+Start Command: npm start
+
+After deploy, open a game and verify the LIVE FIELD tab. The field automatically uses the home team theme and logo.
