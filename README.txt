@@ -1,27 +1,24 @@
-FOURTH & PICK V7.3 — ACCOUNTS + MY POOLS
+FOURTH & PICK V8.3 — GAME DAY + NOTIFICATIONS (LOCAL PREVIEW)
 
-NEW IN V7.3
-- Main-page account registration and sign-in
-- Persistent Stay Signed In behavior on the device
-- My Pools dashboard lists every pool tied to the account
-- One-click opening of any joined pool
-- Commissioner badge for pools the account created
-- Create Pool from the account dashboard
-- Invite-link joining while already signed in
-- Existing V7/V7.2 players can claim their old pool once using their old player PIN
-- If the same browser is already authenticated to an old pool, V7.3 can claim it without re-entering the old PIN
-- Existing league/Pick'em/Survivor/commissioner data remains in the existing leagues table
+1. Extract this ZIP.
+2. Double-click START-WINDOWS.bat.
+3. Open http://localhost:3000
 
-DEPLOY TO RENDER
-1. Back up/export your current pool data if desired.
-2. Replace the repo files with this package, preserving the public/ folder structure.
-3. Do NOT change DATABASE_URL.
-4. Commit/push. Render will deploy automatically.
-5. On startup V7.3 safely creates new accounts and memberships tables with CREATE TABLE IF NOT EXISTS.
-6. Open the main site without ?pool=... and create/sign into an account.
-7. Open each existing pool invite once and click Join This Pool to attach it to My Pools.
+WHAT'S NEW IN V8.3
+- Major Sunday Broadcast visual overhaul
+- Game Day HQ feature hub and animated broadcast ticker
+- Awards Desk with weekly/season honors
+- Notification Center with account email preferences
+- Commissioner Pick Reminder Center
+- Local Email Outbox: reminders are previewed locally and NOT actually sent
+- Optional production email integration via Resend
+- Existing Pick'em, Survivor, live center, multi-pool accounts, standings and commissioner tools remain
 
-IMPORTANT
-Existing pools are NOT deleted or reset. The account system is additive.
-Passwords are stored as salted scrypt hashes; session tokens are stored hashed.
-Commissioner PINs remain separate for commissioner actions.
+LOCAL EMAIL TESTING
+Create/sign into an account, add an email under Alerts, join/open a pool, then open Commissioner.
+After commissioner login, use Send Reminders to Missing Players. In local mode the messages appear in the Local Email Outbox.
+
+OPTIONAL REAL EMAIL (ONLY WHEN YOU LATER DEPLOY)
+Set RESEND_API_KEY and EMAIL_FROM environment variables. Without them, V8.3 stays in safe local-preview mode.
+
+This preview uses local data.json unless DATABASE_URL is deliberately configured. It does not touch your live V7 database by default.

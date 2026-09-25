@@ -1,0 +1,16 @@
+FOURTH & PICK V8.3.4 — RENDER DEPLOY
+
+1. Back up/export the live pool data before a major update.
+2. Replace the files in your existing GitHub repository with this package.
+3. Keep your existing Render DATABASE_URL environment variable. Do NOT create a new database.
+4. Render settings:
+   Build Command: npm install
+   Start Command: npm start
+5. Optional real commissioner email:
+   RESEND_API_KEY=<your Resend API key>
+   EMAIL_FROM=Fourth & Pick <picks@your-verified-domain.com>
+   Without these, communications are stored in the preview outbox instead of being sent.
+6. Deploy the latest commit in Render.
+7. After deployment, verify /health, account sign-in, My Pools, save picks, Live HQ, Game Detail Center, Commissioner Communications, and Invite Players.
+
+This build uses PostgreSQL automatically whenever DATABASE_URL is set and uses local data.json only when DATABASE_URL is absent.
