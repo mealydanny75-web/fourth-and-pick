@@ -158,6 +158,60 @@ async function profile(){
 function activityFeed(){let names=Object.keys(data?.users||{}),items=[['🏈',`${me||'A player'} opened Week ${week} picks`],['✓',`${names.length} player${names.length===1?'':'s'} currently in this pool`],['🔴','Game Day Center is ready for live score tracking'],['💀','Survivor selections stay hidden until kickoff']];content.innerHTML=`<section class="panel"><div class="eyebrow">POOL ACTIVITY</div><h2>Activity Feed Preview</h2><p class="muted">V8 production can store real pool events. This local preview demonstrates the interface without changing your V7 database schema.</p>${items.map(x=>`<div class="activity"><div class="activityIcon">${x[0]}</div><div><b>${x[1]}</b><div class="muted">Just now • Preview event</div></div></div>`).join('')}</section>`}
 
 
+async function insights(){
+  if(!pool)return mainHome();
+  content.innerHTML='<section class="panel"><h2>🧠 Building Pool Insights…</h2></section>';
+  try{
+    const [sum,stand]=await Promise.all([api(`/api/leagues/${pool}/week-summary?week=${week}`),api(`/api/leagues/${pool}/standings`)]);
+    const rows=sum.rows||[], leader=rows[0], season=stand[0], mine=rows.find(x=>x.name===me), seasonMine=stand.find(x=>x.name===me);
+    const avg=rows.length?rows.reduce((a,x)=>a+(x.wins||0),0)/rows.length:0;
+    const completed=rows.reduce((a,x)=>a+(x.wins||0)+(x.losses||0),0);
+    const bestWeek=seasonMine?Object.entries(seasonMine.weekly||{}).sort((a,b)=>(b[1].wins||0)-(a[1].wins||0))[0]:null;
+    content.innerHTML=`<section class="broadcastTop"><div class="broadcastLabel">FOURTH & PICK INTELLIGENCE</div><div class="broadcastTitle">WEEK ${week} INSIGHTS</div><div class="broadcastSub">Live pool trends calculated from the results and picks currently available.</div></section>
+    <section class="panel"><div class="insightGrid">
+      <div class="insightCard">🏆 Weekly Pace<br><span class="muted">${leader?`${leader.name} leads with ${leader.wins} correct`:'Waiting for picks/results'}</span></div>
+      <div class="insightCard">📊 Pool Average<br><span class="muted">${rows.length?avg.toFixed(1):'0.0'} correct picks this week</span></div>
+      <div class="insightCard">👑 Season Leader<br><span class="muted">${season?`${season.name} • ${season.wins}-${season.losses}`:'Season underway'}</span></div>
+      <div class="insightCard">🎯 Your Position<br><span class="muted">${seasonMine?`#${stand.findIndex(x=>x.name===me)+1} • ${(seasonMine.pct*100).toFixed(1)}% accuracy`:'Sign in to personalize insights'}</span></div>
+      <div class="insightCard">🔥 Your Best Week<br><span class="muted">${bestWeek?`Week ${bestWeek[0]} • ${bestWeek[1].wins} correct`:'No completed picks yet'}</span></div>
+      <div class="insightCard">🏈 Results Tracked<br><span class="muted">${completed} graded player-picks across the pool this week</span></div>
+    </div></section>`;
+  }catch(e){content.innerHTML=`<section class="panel"><h2>🧠 Insights</h2><p class="muted">${e.message||'Insights could not be loaded.'}</p></section>`}
+}
+
+async function historyPage(){
+  if(!pool)return mainHome();
+  content.innerHTML='<section class="panel"><h2>📜 Loading Season History…</h2></section>';
+  try{
+    const stand=await api(`/api/leagues/${pool}/standings`);
+    const weeks=[];
+    for(let w=1;w<=18;w++){
+      const ranked=stand.map(x=>({name:x.name,wins:x.weekly?.[w]?.wins||0,losses:x.weekly?.[w]?.losses||0})).filter(x=>x.wins+x.losses>0).sort((a,b)=>b.wins-a.wins||a.losses-b.losses||a.name.localeCompare(b.name));
+      if(ranked.length){const top=ranked[0].wins;weeks.push({week:w,leaders:ranked.filter(x=>x.wins===top).map(x=>x.name),wins:top,played:ranked[0].wins+ranked[0].losses})}
+    }
+    content.innerHTML=`<section class="broadcastTop"><div class="broadcastLabel">FOURTH & PICK RECORD BOOK</div><div class="broadcastTitle">2026 SEASON HISTORY</div><div class="broadcastSub">A week-by-week record built from this pool's graded picks.</div></section><section class="panel"><div class="historyTimeline">${weeks.length?weeks.map(x=>`<div class="historyWeek"><div class="weekBall">${x.week}</div><div><b>Week ${x.week}</b><div>${x.leaders.join(' & ')} • ${x.wins} correct</div><div class="muted">${x.leaders.length>1?'Co-leaders':'Weekly leader'} based on currently graded games.</div></div></div>`).join(''):'<p class="muted">History will populate as games are completed and picks are graded.</p>'}</div></section>`;
+  }catch(e){content.innerHTML=`<section class="panel"><h2>📜 History</h2><p class="muted">${e.message||'History could not be loaded.'}</p></section>`}
+}
+
+async function rivalries(){
+  if(!pool)return mainHome();
+  content.innerHTML='<section class="panel"><h2>⚔️ Building Rivalries…</h2></section>';
+  try{
+    const [sum,stand]=await Promise.all([api(`/api/leagues/${pool}/week-summary?week=${week}`),api(`/api/leagues/${pool}/standings`)]);
+    const rows=sum.rows||[], names=rows.map(x=>x.name), pairs=[];
+    for(let i=0;i<rows.length;i++)for(let j=i+1;j<rows.length;j++){
+      const a=rows[i],b=rows[j],ids=new Set([...Object.keys(a.picks||{}),...Object.keys(b.picks||{})]);let same=0,diff=0,aEdge=0,bEdge=0;
+      for(const id of ids){const ap=a.picks?.[id],bp=b.picks?.[id];if(!ap||!bp)continue;if(ap===bp)same++;else diff++}
+      const sa=stand.find(x=>x.name===a.name),sb=stand.find(x=>x.name===b.name);aEdge=(sa?.wins||0)-(sb?.wins||0);bEdge=-aEdge;
+      pairs.push({a:a.name,b:b.name,same,diff,aEdge,bEdge,gap:Math.abs(aEdge)});
+    }
+    pairs.sort((x,y)=>y.diff-x.diff||x.gap-y.gap||x.a.localeCompare(y.a));
+    let featured=me?pairs.filter(x=>x.a===me||x.b===me):pairs; if(!featured.length)featured=pairs;
+    content.innerHTML=`<section class="broadcastTop"><div class="broadcastLabel">FOURTH & PICK RIVALRY DESK</div><div class="broadcastTitle">WEEK ${week} RIVALRIES</div><div class="broadcastSub">Head-to-head comparisons use picks that are already revealed after kickoff.</div></section><section class="panel"><div class="rivalryGrid">${featured.length?featured.slice(0,6).map(x=>`<div class="rivalCard"><div class="versus"><span>${x.a}</span><b>VS</b><span>${x.b}</span></div><div class="impactMeter"><i style="width:${Math.min(100,Math.max(8,x.diff*12))}%"></i></div><div class="muted">${x.diff} revealed disagreement${x.diff===1?'':'s'} • ${x.same} same pick${x.same===1?'':'s'}</div><div style="margin-top:10px"><b>${x.aEdge===0?'Season race tied':x.aEdge>0?`${x.a} leads season wins by ${x.aEdge}`:`${x.b} leads season wins by ${x.bEdge}`}</b></div></div>`).join(''):'<p class="muted">Rivalries appear once at least two players have revealed picks. Picks remain hidden until each game kicks off.</p>'}</div></section>`;
+  }catch(e){content.innerHTML=`<section class="panel"><h2>⚔️ Rivalries</h2><p class="muted">${e.message||'Rivalries could not be loaded.'}</p></section>`}
+}
+
+
 async function awards(){
  if(!pool)return mainHome(); let sum=await api(`/api/leagues/${pool}/week-summary?week=${week}`),stand=await api(`/api/leagues/${pool}/standings`);let leader=sum.rows?.[0],season=stand?.[0];
  let perfect=(sum.rows||[]).find(x=>x.total&&x.wins===x.total);let most=(sum.rows||[]).slice().sort((a,b)=>b.picked-a.picked)[0];
