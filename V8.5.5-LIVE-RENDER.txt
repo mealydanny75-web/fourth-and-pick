@@ -1,7 +1,0 @@
-FOURTH & PICK V8.5.5 LIVE / RENDER
-
-Upload these files to the existing repository used by Render.
-Keep the existing DATABASE_URL. Do not reset the PostgreSQL database.
-Render: Build Command = npm install; Start Command = npm start.
-Keep RESEND_API_KEY, EMAIL_FROM, and EMAIL_REPLY_TO if already configured.
-After deploy, confirm the UI shows V8.5.5 LIVE.
