@@ -1,4 +1,0 @@
-
-V8.5.4 LOGIN FIX
-- Fixed post-login esc is not defined regression.
-- Retains V8.5.3 pool-mode persistence and V8.5.1 announcements.
