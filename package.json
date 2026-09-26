@@ -1,6 +1,6 @@
 {
   "name": "fourth-and-pick",
-  "version": "8.4.5",
+  "version": "8.5.0-local",
   "private": true,
   "engines": {
     "node": ">=18"

@@ -1,0 +1,25 @@
+FOURTH & PICK V8.5 — LOCAL TEST BUILD
+
+Implemented in this test build:
+- Commissioner Member Manager: suspend, reactivate, remove from active pool (history preserved)
+- Existing join approvals, privacy, and commissioner transfer retained
+- Pool-type switches now affect player availability and are enforced server-side for Pick'em, Survivor, and extra pool saves
+- Disabled modes retain stored historical data
+- Pick Receipts with confirmation ID, timestamp, saved count, and change count
+- Pick saves append to commissioner audit history
+- Scenario Center / What Do I Need? foundation using live pool/game state (no outcome prediction)
+- Watch Party large-screen live score + projected pool race view
+- Existing V8.4.5 Game Day, animated 32-team fields, communications/email fixes, insights/history/rivalries retained
+
+LOCAL TEST:
+1. Extract this ZIP to a new folder.
+2. Double-click START-WINDOWS.bat.
+3. Open http://localhost:3000
+4. Use/create a LOCAL TEST pool. Do not point this local test at production DATABASE_URL unless you intentionally want to use production data.
+
+Recommended tests:
+- Commissioner > Pool Modes: disable Survivor, save, verify Survivor disappears/is blocked.
+- Commissioner > Membership: suspend/reactivate a player; remove a player and verify history remains in league data.
+- Pick'em: save picks and open Game Day > Pick Receipts.
+- Game Day: open What Do I Need? and Watch Party.
+- Confirm Insights, History, Rivalries, Communications, Live HQ, and animated Game Detail still open.
