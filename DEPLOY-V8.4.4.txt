@@ -1,9 +1,0 @@
-Fourth & Pick V8.4.4 — Insights / History / Rivalries Fix
-
-Fixes the three navigation tabs that were present in V8.4.3 but had no page functions attached.
-
-Insights now loads weekly and season metrics.
-History now builds a week-by-week record from graded picks.
-Rivalries now compares revealed post-kickoff picks and season win differences.
-
-No database reset or new environment variables are required. Deploy over V8.4.3 using the same DATABASE_URL and existing Render settings.
