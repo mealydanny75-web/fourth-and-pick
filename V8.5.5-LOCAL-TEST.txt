@@ -1,5 +1,0 @@
-FOURTH & PICK V8.5.5 LOCAL TEST
-
-Base: V8.5.3 pool-mode persistence build.
-Adds: global escapeHtml()/esc() compatibility aliases and visible V8.5.5 build marker.
-Local launcher clears DATABASE_URL and uses local data storage.
