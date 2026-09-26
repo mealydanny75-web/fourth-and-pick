@@ -1,59 +1,172 @@
 {
   "leagues": {
-    "21dfaa2e": {
+    "727cf71e": {
       "name": "Fourth & Pick",
       "season": 2026,
       "adminHash": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
       "users": {
-        "dannywsd": {
+        "danny": {
           "pinHash": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
-          "tokenHash": "4a8654ab19be095281103453103ec1cd4476f2e1f0cb3fdd9405f8c1c71cb58b",
-          "picks": {},
-          "tiebreakers": {},
-          "joinedAt": "2026-09-26T19:20:23.440Z"
+          "tokenHash": "54c68be93373d452581f315cd29d1e0ae8b3bf1d20a0c957a2e42756e287975d",
+          "picks": {
+            "401872949": "CLE",
+            "401872950": "PIT",
+            "401872951": "IND",
+            "401872952": "KC",
+            "401872953": "BUF",
+            "401872954": "NYJ",
+            "401872955": "WSH",
+            "401872956": "NYG",
+            "401872957": "JAX",
+            "401872958": "SF",
+            "401872959": "MIN",
+            "401872960": "DAL",
+            "401872961": "NO",
+            "401872962": "DEN",
+            "401872963": "CHI"
+          },
+          "tiebreakers": {
+            "3": 47
+          },
+          "joinedAt": "2026-09-26T19:58:43.302Z",
+          "survivorPicks": {
+            "3": "DET"
+          }
         }
       },
       "manualResults": {},
       "poolPrivacy": "invite",
-      "poolCode": "21DFAA2E",
+      "poolCode": "727CF71E",
       "joinRequests": [],
-      "createdAt": "2026-09-26T19:20:23.440Z",
+      "createdAt": "2026-09-26T19:58:43.302Z",
       "poolModes": {
-        "pickem": true,
+        "pickem": false,
         "survivor": true,
         "confidence": false,
         "ats": false,
-        "lock": true,
+        "lock": false,
         "squares": false,
         "doubleSurvivor": false,
-        "upset": true,
+        "upset": false,
         "playoffs": false,
         "superBowl": false
       },
       "extraPools": {},
-      "pickReceipts": [],
-      "auditLog": []
+      "pickReceipts": [
+        {
+          "id": "FP-3-C09331",
+          "at": "2026-09-26T19:59:16.406Z",
+          "week": 3,
+          "name": "danny",
+          "saved": 15,
+          "total": 16,
+          "changes": [
+            {
+              "gameId": "401872953",
+              "from": null,
+              "to": "BUF"
+            },
+            {
+              "gameId": "401872949",
+              "from": null,
+              "to": "CLE"
+            },
+            {
+              "gameId": "401872954",
+              "from": null,
+              "to": "NYJ"
+            },
+            {
+              "gameId": "401872951",
+              "from": null,
+              "to": "IND"
+            },
+            {
+              "gameId": "401872952",
+              "from": null,
+              "to": "KC"
+            },
+            {
+              "gameId": "401872956",
+              "from": null,
+              "to": "NYG"
+            },
+            {
+              "gameId": "401872950",
+              "from": null,
+              "to": "PIT"
+            },
+            {
+              "gameId": "401872955",
+              "from": null,
+              "to": "WSH"
+            },
+            {
+              "gameId": "401872957",
+              "from": null,
+              "to": "JAX"
+            },
+            {
+              "gameId": "401872958",
+              "from": null,
+              "to": "SF"
+            },
+            {
+              "gameId": "401872959",
+              "from": null,
+              "to": "MIN"
+            },
+            {
+              "gameId": "401872960",
+              "from": null,
+              "to": "DAL"
+            },
+            {
+              "gameId": "401872961",
+              "from": null,
+              "to": "NO"
+            },
+            {
+              "gameId": "401872962",
+              "from": null,
+              "to": "DEN"
+            },
+            {
+              "gameId": "401872963",
+              "from": null,
+              "to": "CHI"
+            }
+          ]
+        }
+      ],
+      "auditLog": [
+        {
+          "at": "2026-09-26T19:59:16.406Z",
+          "action": "danny saved Week 3 picks (15/16)",
+          "receiptId": "FP-3-C09331"
+        }
+      ]
     }
   },
   "accounts": {
-    "kljh": {
-      "username": "kljh",
-      "display_name": "dannywsd",
-      "salt": "71503e45a270349af6aa2ad8ca53b82c",
-      "password_hash": "13fce64f30c6a8378559844bdd1a96f79703ab2f40b580e502612b64690f405e1c632ae9630386ce77be56c35e64becfa6ed5f692fba65951d593b3caab75513",
-      "session_hash": "58633c7832477afedc72bb4c88f224b46550245d57a38e9cc64393c678765c08",
-      "email": "mealydanny75@gmail.com",
+    "danny.mealyaol.c": {
+      "username": "danny.mealyaol.c",
+      "display_name": "danny",
+      "salt": "c4e11d3e00f6a1d64127be04a1310ae2",
+      "password_hash": "59c7fac49d8e7c5a15f420b22f6956e19a6312e1058e45a801b08ef38396f8aa649467938758300edebfa1ca0d63ce2ed73b60e92332460da6dc21d44ca6c09c",
+      "session_hash": "56f03bf8bd58f3f7694be9b84c0530aa6f4c5c939c64c1d4ddae55657c8f3161",
+      "email": "danny.mealy@aol.com",
       "email_reminders": true,
-      "created_at": "2026-09-26T19:20:02.775Z"
+      "created_at": "2026-09-26T19:58:30.943Z"
     }
   },
   "memberships": [
     {
-      "account_id": "kljh",
-      "league_id": "21dfaa2e",
-      "player_name": "dannywsd",
+      "account_id": "danny.mealyaol.c",
+      "league_id": "727cf71e",
+      "player_name": "danny",
       "role": "commissioner",
-      "joined_at": "2026-09-26T19:20:23.487Z"
+      "joined_at": "2026-09-26T19:58:43.341Z"
     }
   ],
   "emailOutbox": []
